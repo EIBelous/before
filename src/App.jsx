@@ -18,9 +18,9 @@ export default function App() {
         <Header />
         <main>
           <Routes>
-          
-          <Route path="/" element={<Products />}/>
-          <Route path="/detail" element={<Detail />}/>
+          <Route path="/" element={<h1>Welcome to cart Rock fitness</h1>}/>
+          <Route path="/:category" element={<Products />}/>
+          <Route path="/" element={<Detail />}/>
           <Route path="/cart" element={<Cart />}/>
           </Routes>
             
