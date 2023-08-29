@@ -46,7 +46,8 @@ export default function Cart({ cart, updateQuantity }) {
 
   return (
     <section id="cart">
-      <h1>Cart</h1>
+      <h1>{numItemsInCart === 0 ? "Your cart is empty" : 
+      `${numItemsInCart} items in my cart`}</h1>
       <ul>{cart.map(renderItem)}</ul>
     </section>
   );
