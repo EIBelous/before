@@ -10,7 +10,14 @@ export default function Checkout({ cart }) {
   const [address, setAddress] = useState(emptyAddress);
 
   function handleChange(e) {
-    // TODO
+    e.persist()
+    setAddress((curAdress)=>{
+        return{
+            ...curAdress,
+            [e.target.id]:e.target.value
+        }
+
+    })
   }
 
   function handleBlur(event) {
