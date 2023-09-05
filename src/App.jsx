@@ -6,6 +6,7 @@ import Products from "./Products";
 import {Routes, Route} from "react-router-dom"
 import Detail from "./Detail";
 import Cart from "./Cart";
+import Checkout from "./checkout";
 
 export default function App() {
   const [cart, setCart] = useState(()=> {
@@ -52,6 +53,7 @@ function updateQuantity(sku, quantity) {
           <Route path="/:category/:id" 
           element={<Detail addToCart={addToCart} />}/>
           <Route path="/cart" element={<Cart cart={cart} updateQuantity={updateQuantity}/>}/>
+          <Route path="/checkout" element={<Checkout cart={cart} /> }/>
           </Routes>
             
         </main>
