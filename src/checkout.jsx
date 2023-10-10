@@ -19,6 +19,7 @@ export default function Checkout({ cart }) {
 
     })
   }
+//ddddddd
 
   function handleBlur(event) {
     // TODO
