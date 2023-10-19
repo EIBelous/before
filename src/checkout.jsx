@@ -19,6 +19,9 @@ export default function Checkout({ cart, emptyCart }) {
 const [status, setStatus] = useState(STATUS.IDLE)
 const [saveError, setSaveError] = useState(null)
 
+// Derived state
+const errors = getErrors(address) 
+
   function handleChange(e) {
     e.persist()
     setAddress((curAdress)=>{
@@ -35,6 +38,7 @@ const [saveError, setSaveError] = useState(null)
     // TODO
   }
 
+
   async function handleSubmit(event) {
     event.preventDefault()
    setStatus(STATUS.SUBMITTING)
@@ -47,6 +51,14 @@ const [saveError, setSaveError] = useState(null)
     setSaveError(e)
    }
   }
+   
+  function getErrors(address){
+    const result = {}
+    if (!address.city) result = "City is required"
+    if (!address.coutry) result = "Coutry is required"
+    return result
+  }
+
   if (saveError) throw saveError
   if (status === STATUS.COMPLITTED) {
     return(
