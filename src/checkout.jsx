@@ -5,7 +5,7 @@ const STATUS = {
   IDLE : "IDLE",
   SUBMITTED : "SUBMITTED",
   SUBMITTING: "SUBMITTING",
-  COMPLITTED: "COMPLITTED",
+  COMPLETED: "COMPLETED",
 };
 
 // Declaring outside component to avoid recreation on each render
@@ -21,6 +21,7 @@ const [saveError, setSaveError] = useState(null)
 
 // Derived state
 const errors = getErrors(address) 
+const isValid = Object.keys(errors).length === 0;
 
   function handleChange(e) {
     e.persist()
@@ -42,25 +43,29 @@ const errors = getErrors(address)
   async function handleSubmit(event) {
     event.preventDefault()
    setStatus(STATUS.SUBMITTING)
-   try{
+   if (isValid) {
+       try{
     await saveShippingAddress(address)
     emptyCart()
-    setStatus(STATUS.COMPLITTED)
+    setStatus(STATUS.COMPLETED)
    }
    catch(e){
     setSaveError(e)
    }
+  } else{
+    setStatus(STATUS.SUBMITTED)
   }
+}
    
   function getErrors(address){
     const result = {}
-    if (!address.city) result = "City is required"
-    if (!address.coutry) result = "Coutry is required"
+    if (!address.city) result.city = "City is required"
+    if (!address.country) result.country = "Country is required"
     return result
   }
 
   if (saveError) throw saveError
-  if (status === STATUS.COMPLITTED) {
+  if (status === STATUS.COMPLETED) {
     return(
       <h1 className="">Thanks fot order</h1>
     )
@@ -68,6 +73,16 @@ const errors = getErrors(address)
   return (
     <>
       <h1>Shipping Info</h1>
+      {!isValid && status === STATUS.SUBMITTED && (
+        <div role="alert"> 
+        <p>Please fix folowing errors:</p>
+        <ul>
+          {Object.keys(errors).map((key)=>{
+            return <li key={key}>{errors[key]}</li>
+          } )}
+        </ul>
+        </div>
+      )} 
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="city">City</label>
