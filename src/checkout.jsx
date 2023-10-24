@@ -57,6 +57,7 @@ export default function Checkout({ cart, emptyCart }) {
       setStatus(STATUS.SUBMITTED);
     }
   }
+//Todo
 
   function getErrors(address) {
     const result = {};
