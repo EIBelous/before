@@ -57,7 +57,7 @@ export default function Checkout({ cart, emptyCart }) {
       setStatus(STATUS.SUBMITTED);
     }
   }
-//Todo
+//Todo-8
 
   function getErrors(address) {
     const result = {};
