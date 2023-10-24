@@ -21,9 +21,15 @@ export default function Checkout({ cart, emptyCart }) {
   const [saveError, setSaveError] = useState(null);
   const [touched, setTouched] = useState({});
 
+<<<<<<< HEAD
   // Derived state
   const errors = getErrors(address);
   const isValid = Object.keys(errors).length === 0;
+=======
+// Derived state
+const errors = getErrors(address) 
+const isValid = Object.keys(errors).length === 0;
+>>>>>>> c5d3fb5368d4c285d9d797b972933a00d9df4cd7
 
   function handleChange(e) {
     e.persist(); // persist the event
@@ -43,6 +49,7 @@ export default function Checkout({ cart, emptyCart }) {
   }
 
   async function handleSubmit(event) {
+<<<<<<< HEAD
     event.preventDefault();
     setStatus(STATUS.SUBMITTING);
     if (isValid) {
@@ -68,12 +75,43 @@ export default function Checkout({ cart, emptyCart }) {
   if (saveError) throw saveError;
   if (status === STATUS.COMPLETED) {
     return <h1>Thanks for shopping!</h1>;
+=======
+    event.preventDefault()
+   setStatus(STATUS.SUBMITTING)
+   if (isValid) {
+       try{
+    await saveShippingAddress(address)
+    emptyCart()
+    setStatus(STATUS.COMPLETED)
+   }
+   catch(e){
+    setSaveError(e)
+   }
+  } else{
+    setStatus(STATUS.SUBMITTED)
+  }
+}
+   
+  function getErrors(address){
+    const result = {}
+    if (!address.city) result.city = "City is required"
+    if (!address.country) result.country = "Country is required"
+    return result
+  }
+
+  if (saveError) throw saveError
+  if (status === STATUS.COMPLETED) {
+    return(
+      <h1 className="">Thanks fot order</h1>
+    )
+>>>>>>> c5d3fb5368d4c285d9d797b972933a00d9df4cd7
   }
 
   return (
     <>
       <h1>Shipping Info</h1>
       {!isValid && status === STATUS.SUBMITTED && (
+<<<<<<< HEAD
         <div role="alert">
           <p>Please fix the following errors:</p>
           <ul>
@@ -83,6 +121,17 @@ export default function Checkout({ cart, emptyCart }) {
           </ul>
         </div>
       )}
+=======
+        <div role="alert"> 
+        <p>Please fix folowing errors:</p>
+        <ul>
+          {Object.keys(errors).map((key)=>{
+            return <li key={key}>{errors[key]}</li>
+          } )}
+        </ul>
+        </div>
+      )} 
+>>>>>>> c5d3fb5368d4c285d9d797b972933a00d9df4cd7
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="city">City</label>
