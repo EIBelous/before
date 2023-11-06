@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "./cartContext";
 import { saveShippingAddress } from "./services/shippingService";
-
 const STATUS = {
   IDLE: "IDLE",
   SUBMITTED: "SUBMITTED",
@@ -15,7 +15,8 @@ const emptyAddress = {
   country: "",
 };
 
-export default function Checkout({ cart, dispatch }) {
+export default function Checkout() {
+  const {dispatch} = useCart()
   const [address, setAddress] = useState(emptyAddress);
   const [status, setStatus] = useState(STATUS.IDLE);
   const [saveError, setSaveError] = useState(null);

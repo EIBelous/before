@@ -94,6 +94,11 @@
       "city": "ff",
       "country": "China",
       "id": 7
+    },
+    {
+      "city": "Білгород-Дністровський",
+      "country": "China",
+      "id": 8
     }
   ]
 }
