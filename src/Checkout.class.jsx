@@ -32,34 +32,36 @@ touched: {}
 
    handleChange(e) {
     e.persist(); // persist the event
-    setAddress((curAddress) => {
+    this.setState((state) => {
       return {
-        ...curAddress,
+        address:{
+        ...state.address,
         [e.target.id]: e.target.value,
+        }
       };
     });
   }
 
   handleBlur(event) {
     event.persist();
-    setTouched((cur) => {
-      return { ...cur, [event.target.id]: true };
+    this.setState((state) => {
+      return {touched: {...state.touched, [event.target.id]: true }};
     });
   }
 
   async  handleSubmit(event) {
     event.preventDefault();
-    setStatus(STATUS.SUBMITTING);
-    if (isValid) {
+    this.setState({status: STATUS.SUBMITTING});
+    if (this.isValid()) {
       try {
-        await saveShippingAddress(address);
+        await saveShippingAddress(this.state.address);
         this.propps.dispatch({type:"empty"});
-        setStatus(STATUS.COMPLETED);
+        this.setState({status: STATUS.COMPLETED});
       } catch (e) {
-        setSaveError(e);
+        this.setState({saveError: e});
       }
     } else {
-      setStatus(STATUS.SUBMITTED);
+      this.setState({status: STATUS.SUBMITTED});
     }
   }
 
@@ -73,7 +75,7 @@ touched: {}
     if (!address.country) result.country = "Country is required";
     return result;
   }
-render(
+render(){
   if (saveError) throw saveError;
   if (status === STATUS.COMPLETED) {
     return <h1>Thanks for shopping!</h1>;
