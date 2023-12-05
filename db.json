@@ -99,6 +99,11 @@
       "city": "Білгород-Дністровський",
       "country": "China",
       "id": 8
+    },
+    {
+      "city": "ы",
+      "country": "India",
+      "id": 9
     }
   ]
 }

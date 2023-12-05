@@ -24,5 +24,8 @@ const contextValue={
 
 export function useCart(){
     const context = useContext(CartContext)
+    if(!context) {
+      throw new Error ("useContext must be used in smfing")
+    }
     return context
 };
