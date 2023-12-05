@@ -6,7 +6,7 @@ import Products from "./Products";
 import { Routes, Route } from "react-router-dom";
 import Detail from "./Detail";
 import Cart from "./Cart";
-import Checkout from "./checkout";
+import Checkout from "./Checkout.class";
 import { CartContext } from "./cartContext";
 import { useCart } from "./cartContext";
 

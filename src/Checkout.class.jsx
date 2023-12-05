@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { saveShippingAddress } from "./services/shippingService";
 const STATUS = {
@@ -26,8 +26,8 @@ touched: {}
 
   // Derived state
   isValid(){
-  const errors = getErrors(this.state.address);
-  return isValid = Object.keys(errors).length === 0;
+  const errors = this.getErrors(this.state.address);
+  return  Object.keys(errors).length === 0;
   }
 
    handleChange(e) {
@@ -76,6 +76,8 @@ touched: {}
     return result;
   }
 render(){
+    const {status, saveError, address, touched} = this.state
+    const errors = this.getErrors(this.state.address);
   if (saveError) throw saveError;
   if (status === STATUS.COMPLETED) {
     return <h1>Thanks for shopping!</h1>;
@@ -84,7 +86,7 @@ render(){
   return (
     <>
       <h1>Shipping Info</h1>
-      {!isValid && status === STATUS.SUBMITTED && (
+      {!this.isValid() && status === STATUS.SUBMITTED && (
         <div role="alert">
           <p>Please fix the following errors:</p>
           <ul>
@@ -94,7 +96,7 @@ render(){
           </ul>
         </div>
       )}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <div>
           <label htmlFor="city">City</label>
           <br />
@@ -102,8 +104,8 @@ render(){
             id="city"
             type="text"
             value={address.city}
-            onBlur={handleBlur}
-            onChange={handleChange}
+            onBlur={this.handleBlur}
+            onChange={this.handleChange}
           />
           <p role="alert">
             {(touched.city || status === STATUS.SUBMITTED) && errors.city}
@@ -116,8 +118,8 @@ render(){
           <select
             id="country"
             value={address.country}
-            onBlur={handleBlur}
-            onChange={handleChange}
+            onBlur={this.handleBlur}
+            onChange={this.handleChange}
           >
             <option value="">Select Country</option>
             <option value="China">China</option>
